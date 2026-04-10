@@ -17,13 +17,13 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
 
 export default function Nav({ active, onChange }: NavProps) {
   return (
-    <header className="sticky top-0 z-50 bg-neutral-900/80 backdrop-blur border-b border-white/5">
+    <header className="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-pink-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-6 h-14">
           {/* Logo */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center text-sm font-bold text-white">S</div>
-            <span className="font-semibold text-white hidden sm:block">StudySync</span>
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center text-sm font-bold text-white">S</div>
+            <span className="font-semibold text-pink-100 hidden sm:block">StudySync</span>
           </div>
 
           {/* Tabs */}
@@ -34,8 +34,8 @@ export default function Nav({ active, onChange }: NavProps) {
                 onClick={() => onChange(tab.id)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                   active === tab.id
-                    ? "bg-white/10 text-white"
-                    : "text-neutral-400 hover:text-white hover:bg-white/5"
+                    ? "bg-pink-900/30 text-pink-100"
+                    : "text-pink-700 hover:text-pink-200 hover:bg-pink-900/20"
                 }`}
               >
                 <span className="text-base leading-none">{tab.icon}</span>

@@ -82,30 +82,30 @@ export default function StudyPlanner() {
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Study Planner</h1>
-          <p className="text-xs text-neutral-400 mt-0.5">
+          <h1 className="text-lg font-bold text-pink-100">Study Planner</h1>
+          <p className="text-xs text-pink-400 mt-0.5">
             {totalHoursThisWeek.toFixed(1)}h planned this week
           </p>
         </div>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex bg-neutral-800 rounded-lg p-0.5 gap-0.5">
+          <div className="flex bg-pink-950 rounded-lg p-0.5 gap-0.5">
             <button
               onClick={() => setView("week")}
-              className={`px-3 py-1 rounded-md text-sm transition-colors ${view === "week" ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white"}`}
+              className={`px-3 py-1 rounded-md text-sm transition-colors ${view === "week" ? "bg-white/10 text-pink-100" : "text-pink-400 hover:text-pink-100"}`}
             >
               Week
             </button>
             <button
               onClick={() => setView("list")}
-              className={`px-3 py-1 rounded-md text-sm transition-colors ${view === "list" ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white"}`}
+              className={`px-3 py-1 rounded-md text-sm transition-colors ${view === "list" ? "bg-white/10 text-pink-100" : "text-pink-400 hover:text-pink-100"}`}
             >
               List
             </button>
           </div>
           <button
             onClick={() => { setEditingId(null); setShowForm(true); }}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
           >
             + Add Session
           </button>
@@ -119,18 +119,18 @@ export default function StudyPlanner() {
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={() => setWeekOffset(w => w - 1)}
-              className="p-1.5 rounded-lg hover:bg-white/5 text-neutral-400 hover:text-white transition-colors"
+              className="p-1.5 rounded-lg hover:bg-white/5 text-pink-400 hover:text-pink-100 transition-colors"
             >
               ←
             </button>
-            <div className="text-sm font-medium text-white">
+            <div className="text-sm font-medium text-pink-100">
               {weekDates[0].toLocaleDateString("en-US", { month: "short", day: "numeric" })} –{" "}
               {weekDates[6].toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
               {weekOffset === 0 && <span className="ml-2 text-xs text-violet-400">(This week)</span>}
             </div>
             <button
               onClick={() => setWeekOffset(w => w + 1)}
-              className="p-1.5 rounded-lg hover:bg-white/5 text-neutral-400 hover:text-white transition-colors"
+              className="p-1.5 rounded-lg hover:bg-white/5 text-pink-400 hover:text-pink-100 transition-colors"
             >
               →
             </button>
@@ -142,11 +142,11 @@ export default function StudyPlanner() {
               const sessions = sessionsForDay(date);
               return (
                 <div key={i} className={`rounded-xl border min-h-24 p-1.5 transition-colors ${
-                  isToday ? "bg-violet-600/10 border-violet-600/30" : "bg-neutral-800/30 border-white/5"
+                  isToday ? "bg-pink-600/10 border-violet-600/30" : "bg-pink-950/30 border-pink-900"
                 }`}>
-                  <div className={`text-center mb-1.5 ${isToday ? "text-violet-400" : "text-neutral-400"}`}>
+                  <div className={`text-center mb-1.5 ${isToday ? "text-violet-400" : "text-pink-400"}`}>
                     <div className="text-xs font-medium">{DAY_LABELS[date.getDay()]}</div>
-                    <div className={`text-base font-bold leading-tight ${isToday ? "text-white" : ""}`}>
+                    <div className={`text-base font-bold leading-tight ${isToday ? "text-pink-100" : ""}`}>
                       {date.getDate()}
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export default function StudyPlanner() {
                           title={`${session.title} · ${session.startTime}–${session.endTime}\nClick to toggle status`}
                           className={`w-full text-left px-1.5 py-1 rounded-md text-xs font-medium transition-colors ${
                             session.status === "completed" ? "bg-green-600/20 text-green-400 line-through opacity-60" :
-                            session.status === "skipped" ? "bg-neutral-700/50 text-neutral-500 line-through opacity-50" :
+                            session.status === "skipped" ? "bg-neutral-700/50 text-pink-500 line-through opacity-50" :
                             `${c.bgLight} ${c.text}`
                           }`}
                         >
@@ -175,7 +175,7 @@ export default function StudyPlanner() {
               );
             })}
           </div>
-          <p className="text-xs text-neutral-600 mt-2 text-center">Click a session to cycle its status: planned → completed → skipped</p>
+          <p className="text-xs text-pink-600 mt-2 text-center">Click a session to cycle its status: planned → completed → skipped</p>
         </div>
       )}
 
@@ -183,7 +183,7 @@ export default function StudyPlanner() {
       {view === "list" && (
         <div className="space-y-2">
           {sortedSessions.length === 0 ? (
-            <div className="text-center py-12 text-neutral-500">
+            <div className="text-center py-12 text-pink-500">
               <div className="text-4xl mb-3">📅</div>
               <p className="font-medium">No study sessions planned</p>
             </div>
@@ -199,53 +199,53 @@ export default function StudyPlanner() {
                 <div
                   key={session.id}
                   className={`group flex items-start gap-3 p-3 rounded-xl border transition-colors ${
-                    session.status === "completed" ? "bg-white/2 border-white/5 opacity-60" :
-                    session.status === "skipped" ? "bg-white/2 border-white/5 opacity-40" :
-                    "bg-neutral-800/50 border-white/5 hover:border-white/10"
+                    session.status === "completed" ? "bg-white/2 border-pink-900 opacity-60" :
+                    session.status === "skipped" ? "bg-white/2 border-pink-900 opacity-40" :
+                    "bg-pink-950/50 border-pink-900 hover:border-white/10"
                   }`}
                 >
                   {/* Status dot */}
                   <button
                     onClick={() => toggleStatus(session)}
                     className={`mt-0.5 w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition-colors ${
-                      session.status === "completed" ? "bg-green-600 border-green-600 text-white" :
+                      session.status === "completed" ? "bg-green-600 border-green-600 text-pink-100" :
                       session.status === "skipped" ? "bg-neutral-700 border-neutral-600" :
                       `border-neutral-600 hover:${c.border}`
                     }`}
                   >
                     {session.status === "completed" && <span className="text-xs leading-none">✓</span>}
-                    {session.status === "skipped" && <span className="text-xs leading-none text-neutral-500">–</span>}
+                    {session.status === "skipped" && <span className="text-xs leading-none text-pink-500">–</span>}
                   </button>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`text-sm font-medium text-white ${session.status !== "planned" ? "line-through" : ""}`}>
+                      <span className={`text-sm font-medium text-pink-100 ${session.status !== "planned" ? "line-through" : ""}`}>
                         {session.title}
                       </span>
-                      {isToday && <span className="text-xs px-1.5 py-0.5 rounded bg-violet-600/20 text-violet-300 font-medium">Today</span>}
+                      {isToday && <span className="text-xs px-1.5 py-0.5 rounded bg-pink-600/20 text-violet-300 font-medium">Today</span>}
                     </div>
                     <p className={`text-xs mt-0.5 ${c.text}`}>{subject?.name}</p>
-                    {session.notes && <p className="text-xs text-neutral-500 mt-0.5 truncate">{session.notes}</p>}
+                    {session.notes && <p className="text-xs text-pink-500 mt-0.5 truncate">{session.notes}</p>}
                   </div>
 
                   <div className="text-right shrink-0">
                     <p className="text-xs text-neutral-300">
                       {sessionDate.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
                     </p>
-                    <p className="text-xs text-neutral-400">{session.startTime}–{session.endTime}</p>
-                    {duration && <p className="text-xs text-neutral-500">{duration}</p>}
+                    <p className="text-xs text-pink-400">{session.startTime}–{session.endTime}</p>
+                    {duration && <p className="text-xs text-pink-500">{duration}</p>}
                   </div>
 
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                     <button
                       onClick={() => { setEditingId(session.id); setShowForm(true); }}
-                      className="p-1.5 rounded-lg hover:bg-white/5 text-neutral-400 hover:text-white text-xs"
+                      className="p-1.5 rounded-lg hover:bg-white/5 text-pink-400 hover:text-pink-100 text-xs"
                     >
                       ✎
                     </button>
                     <button
                       onClick={() => dispatch({ type: "DELETE_STUDY_SESSION", payload: session.id })}
-                      className="p-1.5 rounded-lg hover:bg-rose-600/20 text-neutral-400 hover:text-rose-400 text-xs"
+                      className="p-1.5 rounded-lg hover:bg-rose-600/20 text-pink-400 hover:text-rose-400 text-xs"
                     >
                       ✕
                     </button>
@@ -306,71 +306,71 @@ function StudySessionForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="bg-neutral-900 border border-white/10 rounded-2xl w-full max-w-md shadow-2xl">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
-          <h2 className="font-bold text-white">{session ? "Edit Session" : "New Study Session"}</h2>
-          <button onClick={onClose} className="text-neutral-400 hover:text-white transition-colors">✕</button>
+      <div className="bg-black border border-white/10 rounded-2xl w-full max-w-md shadow-2xl">
+        <div className="flex items-center justify-between p-5 border-b border-pink-900">
+          <h2 className="font-bold text-pink-100">{session ? "Edit Session" : "New Study Session"}</h2>
+          <button onClick={onClose} className="text-pink-400 hover:text-pink-100 transition-colors">✕</button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Title *</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Title *</label>
             <input
               required
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               placeholder="e.g. Integration Practice"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Subject *</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Subject *</label>
             <select
               required
               value={form.subjectId}
               onChange={(e) => setForm({ ...form, subjectId: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2"
             >
               {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Date *</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Date *</label>
             <input
               required
               type="date"
               value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-neutral-400 mb-1.5">Start Time *</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Start Time *</label>
               <input
                 required
                 type="time"
                 value={form.startTime}
                 onChange={(e) => setForm({ ...form, startTime: e.target.value })}
-                className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-neutral-400 mb-1.5">End Time *</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">End Time *</label>
               <input
                 required
                 type="time"
                 value={form.endTime}
                 onChange={(e) => setForm({ ...form, endTime: e.target.value })}
-                className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Status</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Status</label>
             <select
               value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value as StudySessionStatus })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2"
             >
               <option value="planned">Planned</option>
               <option value="completed">Completed</option>
@@ -378,20 +378,20 @@ function StudySessionForm({
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Notes</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Notes</label>
             <textarea
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-pink-500"
               placeholder="What to focus on..."
             />
           </div>
           <div className="flex gap-3 pt-2">
-            <button type="button" onClick={onClose} className="flex-1 py-2 rounded-lg bg-neutral-800 text-neutral-300 text-sm font-medium hover:bg-neutral-700 transition-colors">
+            <button type="button" onClick={onClose} className="flex-1 py-2 rounded-lg bg-pink-950 text-neutral-300 text-sm font-medium hover:bg-neutral-700 transition-colors">
               Cancel
             </button>
-            <button type="submit" className="flex-1 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+            <button type="submit" className="flex-1 py-2 rounded-lg bg-pink-600 text-pink-100 text-sm font-medium hover:bg-pink-500 transition-colors">
               {session ? "Save Changes" : "Add Session"}
             </button>
           </div>

@@ -71,18 +71,18 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Urgent assignments */}
-        <div className="bg-neutral-800/50 border border-white/5 rounded-xl p-4">
+        <div className="bg-pink-950/30 border border-pink-900 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-semibold text-white text-sm">Due Soon</h2>
+            <h2 className="font-semibold text-pink-100 text-sm">Due Soon</h2>
             <button
               onClick={() => onNavigate("assignments")}
-              className="text-xs text-neutral-400 hover:text-white transition-colors"
+              className="text-xs text-pink-400 hover:text-pink-100 transition-colors"
             >
               View all →
             </button>
           </div>
           {urgentAssignments.length === 0 ? (
-            <p className="text-neutral-500 text-sm">No assignments due in the next 3 days.</p>
+            <p className="text-pink-600 text-sm">No assignments due in the next 3 days.</p>
           ) : (
             <div className="space-y-2">
               {urgentAssignments.map((a) => {
@@ -92,11 +92,11 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                 return (
                   <div
                     key={a.id}
-                    className="flex items-start gap-3 p-2.5 rounded-lg bg-white/3 border border-white/5"
+                    className="flex items-start gap-3 p-2.5 rounded-lg bg-pink-900/20 border border-pink-900"
                   >
                     <div className={`w-1.5 h-full min-h-8 rounded-full shrink-0 ${c.dot}`} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-medium truncate">{a.title}</p>
+                      <p className="text-pink-100 text-sm font-medium truncate">{a.title}</p>
                       <p className={`text-xs mt-0.5 ${c.text}`}>{subject?.name}</p>
                     </div>
                     <div className={`text-xs font-semibold shrink-0 px-2 py-0.5 rounded-md ${
@@ -114,18 +114,18 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
         </div>
 
         {/* Exam countdowns */}
-        <div className="bg-neutral-800/50 border border-white/5 rounded-xl p-4">
+        <div className="bg-pink-950/30 border border-pink-900 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-semibold text-white text-sm">Exam Countdown</h2>
+            <h2 className="font-semibold text-pink-100 text-sm">Exam Countdown</h2>
             <button
               onClick={() => onNavigate("exams")}
-              className="text-xs text-neutral-400 hover:text-white transition-colors"
+              className="text-xs text-pink-400 hover:text-pink-100 transition-colors"
             >
               View all →
             </button>
           </div>
           {upcomingExams.length === 0 ? (
-            <p className="text-neutral-500 text-sm">No upcoming exams.</p>
+            <p className="text-pink-600 text-sm">No upcoming exams.</p>
           ) : (
             <div className="space-y-2">
               {upcomingExams.map((exam) => {
@@ -139,14 +139,14 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                 return (
                   <div
                     key={exam.id}
-                    className="flex items-center gap-3 p-2.5 rounded-lg bg-white/3 border border-white/5"
+                    className="flex items-center gap-3 p-2.5 rounded-lg bg-pink-900/20 border border-pink-900"
                   >
                     <div className={`w-10 h-10 rounded-lg shrink-0 flex flex-col items-center justify-center text-xs font-bold ${c.bgLight} ${c.text}`}>
                       <span className="text-lg leading-none font-black">{days}</span>
                       <span className="opacity-70">days</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-medium truncate">{exam.title}</p>
+                      <p className="text-pink-100 text-sm font-medium truncate">{exam.title}</p>
                       <p className={`text-xs mt-0.5 ${c.text}`}>{subject?.name}</p>
                     </div>
                     <span className={`text-xs font-medium shrink-0 ${urgency}`}>
@@ -161,12 +161,12 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       </div>
 
       {/* Subject grade overview */}
-      <div className="bg-neutral-800/50 border border-white/5 rounded-xl p-4">
+      <div className="bg-pink-950/30 border border-pink-900 rounded-xl p-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-white text-sm">Grade Overview</h2>
+          <h2 className="font-semibold text-pink-100 text-sm">Grade Overview</h2>
           <button
             onClick={() => onNavigate("grades")}
-            className="text-xs text-neutral-400 hover:text-white transition-colors"
+            className="text-xs text-pink-400 hover:text-pink-100 transition-colors"
           >
             Details →
           </button>
@@ -188,11 +188,11 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                   )}
                 </div>
                 <div className="mt-2">
-                  <div className="flex justify-between text-xs text-neutral-400 mb-1">
+                  <div className="flex justify-between text-xs text-pink-400 mb-1">
                     <span>Current: {current !== null ? `${current.toFixed(1)}%` : "—"}</span>
                     <span>Goal: {subject.gradeGoal}%</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-pink-800/30 overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${c.bg}`}
                       style={{ width: `${Math.min(pct, 100)}%` }}
@@ -214,20 +214,20 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
 
       {/* Today's study plan */}
       {todaySessions.length > 0 && (
-        <div className="bg-neutral-800/50 border border-white/5 rounded-xl p-4">
-          <h2 className="font-semibold text-white text-sm mb-3">Today&apos;s Study Plan</h2>
+        <div className="bg-pink-950/30 border border-pink-900 rounded-xl p-4">
+          <h2 className="font-semibold text-pink-100 text-sm mb-3">Today&apos;s Study Plan</h2>
           <div className="space-y-2">
             {todaySessions.map((session) => {
               const subject = subjects.find((s) => s.id === session.subjectId);
               const c = getColorClasses(subject?.color ?? "blue");
               return (
-                <div key={session.id} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/3 border border-white/5">
+                <div key={session.id} className="flex items-center gap-3 p-2.5 rounded-lg bg-pink-900/20 border border-pink-900">
                   <div className={`w-2 h-2 rounded-full shrink-0 ${c.dot}`} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-white text-sm font-medium">{session.title}</p>
+                    <p className="text-pink-100 text-sm font-medium">{session.title}</p>
                     <p className={`text-xs ${c.text}`}>{subject?.name}</p>
                   </div>
-                  <span className="text-xs text-neutral-400 shrink-0">
+                  <span className="text-xs text-pink-400 shrink-0">
                     {session.startTime} – {session.endTime}
                   </span>
                 </div>
@@ -256,8 +256,8 @@ function StatCard({
       className={`text-left p-4 rounded-xl border transition-colors cursor-pointer ${c.bgLight} ${c.border} hover:bg-white/5`}
     >
       <div className={`text-2xl font-black ${c.text}`}>{value}</div>
-      <div className="text-white text-sm font-medium mt-0.5">{label}</div>
-      <div className="text-neutral-500 text-xs">{sub}</div>
+      <div className="text-pink-100 text-sm font-medium mt-0.5">{label}</div>
+      <div className="text-pink-600 text-xs">{sub}</div>
     </button>
   );
 }

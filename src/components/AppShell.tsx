@@ -14,7 +14,7 @@ export default function AppShell() {
 
   return (
     <AppProvider>
-      <div className="min-h-screen bg-neutral-900 text-white">
+      <div className="min-h-screen bg-black text-pink-100">
         <Nav active={tab} onChange={setTab} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           {tab === "dashboard" && <Dashboard onNavigate={setTab} />}

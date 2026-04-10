@@ -15,6 +15,7 @@ A complete student productivity app built on the Next.js starter. All core featu
 - [x] Memory bank documentation
 - [x] Recipe system for common features
 - [x] StudySync app — full assignment/exam/study/grade tracker
+- [x] Pink and black theme applied to all components
 
 ## Current Structure
 

@@ -30,10 +30,10 @@ export default function ExamCountdown() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold text-white">Exams</h1>
+        <h1 className="text-lg font-bold text-pink-100">Exams</h1>
         <button
           onClick={() => { setEditingId(null); setShowForm(true); }}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
         >
           + Add Exam
         </button>
@@ -41,7 +41,7 @@ export default function ExamCountdown() {
 
       {/* Upcoming exams */}
       {upcoming.length === 0 ? (
-        <div className="text-center py-12 text-neutral-500">
+        <div className="text-center py-12 text-pink-500">
           <div className="text-4xl mb-3">⏰</div>
           <p className="font-medium">No upcoming exams</p>
           <p className="text-sm mt-1">Add an exam to start counting down.</p>
@@ -71,13 +71,13 @@ export default function ExamCountdown() {
                 <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => { setEditingId(exam.id); setShowForm(true); }}
-                    className="p-1.5 rounded-lg bg-neutral-800/80 text-neutral-400 hover:text-white text-xs transition-colors"
+                    className="p-1.5 rounded-lg bg-pink-950/80 text-pink-400 hover:text-pink-100 text-xs transition-colors"
                   >
                     ✎
                   </button>
                   <button
                     onClick={() => deleteExam(exam.id)}
-                    className="p-1.5 rounded-lg bg-neutral-800/80 text-neutral-400 hover:text-rose-400 text-xs transition-colors"
+                    className="p-1.5 rounded-lg bg-pink-950/80 text-pink-400 hover:text-rose-400 text-xs transition-colors"
                   >
                     ✕
                   </button>
@@ -93,15 +93,15 @@ export default function ExamCountdown() {
                   }`}>
                     {days}
                   </div>
-                  <div className="text-neutral-400 text-sm">
+                  <div className="text-pink-400 text-sm">
                     {days === 0 ? "Today!" : days === 1 ? "day away" : "days away"}
                   </div>
                 </div>
 
-                <h3 className="font-bold text-white text-sm mb-0.5 pr-16 truncate">{exam.title}</h3>
+                <h3 className="font-bold text-pink-100 text-sm mb-0.5 pr-16 truncate">{exam.title}</h3>
                 <p className={`text-xs font-medium ${c.text} mb-2`}>{subject?.name}</p>
 
-                <div className="space-y-1 text-xs text-neutral-400">
+                <div className="space-y-1 text-xs text-pink-400">
                   <div className="flex items-center gap-1.5">
                     <span>📅</span>
                     <span>{new Date(exam.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })}</span>
@@ -119,7 +119,7 @@ export default function ExamCountdown() {
                 </div>
 
                 {exam.notes && (
-                  <p className="mt-2 text-xs text-neutral-500 border-t border-white/5 pt-2 line-clamp-2">
+                  <p className="mt-2 text-xs text-pink-500 border-t border-pink-900 pt-2 line-clamp-2">
                     {exam.notes}
                   </p>
                 )}
@@ -147,7 +147,7 @@ export default function ExamCountdown() {
         <div>
           <button
             onClick={() => setShowPast(!showPast)}
-            className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-sm text-pink-400 hover:text-pink-100 transition-colors flex items-center gap-1.5"
           >
             <span className={`transition-transform ${showPast ? "rotate-90" : ""}`}>▶</span>
             {showPast ? "Hide" : "Show"} past exams ({past.length})
@@ -159,32 +159,32 @@ export default function ExamCountdown() {
                 const subject = subjects.find((s) => s.id === exam.subjectId);
                 const c = getColorClasses(subject?.color ?? "blue");
                 return (
-                  <div key={exam.id} className="group flex items-center gap-3 p-3 rounded-xl bg-white/2 border border-white/5 opacity-70">
+                  <div key={exam.id} className="group flex items-center gap-3 p-3 rounded-xl bg-white/2 border border-pink-900 opacity-70">
                     <div className={`w-2 h-2 rounded-full shrink-0 ${c.dot}`} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-medium truncate">{exam.title}</p>
+                      <p className="text-pink-100 text-sm font-medium truncate">{exam.title}</p>
                       <p className={`text-xs ${c.text}`}>{subject?.name}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xs text-neutral-400">
+                      <p className="text-xs text-pink-400">
                         {new Date(exam.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                       </p>
                       {exam.score !== null ? (
-                        <p className="text-sm font-bold text-white">{exam.score}%</p>
+                        <p className="text-sm font-bold text-pink-100">{exam.score}%</p>
                       ) : (
-                        <p className="text-xs text-neutral-500">No score</p>
+                        <p className="text-xs text-pink-500">No score</p>
                       )}
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => { setEditingId(exam.id); setShowForm(true); }}
-                        className="p-1.5 rounded-lg hover:bg-white/5 text-neutral-400 hover:text-white text-xs"
+                        className="p-1.5 rounded-lg hover:bg-white/5 text-pink-400 hover:text-pink-100 text-xs"
                       >
                         ✎
                       </button>
                       <button
                         onClick={() => deleteExam(exam.id)}
-                        className="p-1.5 rounded-lg hover:bg-rose-600/20 text-neutral-400 hover:text-rose-400 text-xs"
+                        className="p-1.5 rounded-lg hover:bg-rose-600/20 text-pink-400 hover:text-rose-400 text-xs"
                       >
                         ✕
                       </button>
@@ -246,90 +246,90 @@ function ExamForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="bg-neutral-900 border border-white/10 rounded-2xl w-full max-w-md shadow-2xl">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
-          <h2 className="font-bold text-white">{exam ? "Edit Exam" : "New Exam"}</h2>
-          <button onClick={onClose} className="text-neutral-400 hover:text-white transition-colors">✕</button>
+      <div className="bg-black border border-white/10 rounded-2xl w-full max-w-md shadow-2xl">
+        <div className="flex items-center justify-between p-5 border-b border-pink-900">
+          <h2 className="font-bold text-pink-100">{exam ? "Edit Exam" : "New Exam"}</h2>
+          <button onClick={onClose} className="text-pink-400 hover:text-pink-100 transition-colors">✕</button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Title *</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Title *</label>
             <input
               required
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               placeholder="e.g. Midterm Exam"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Subject *</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Subject *</label>
             <select
               required
               value={form.subjectId}
               onChange={(e) => setForm({ ...form, subjectId: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2"
             >
               {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-neutral-400 mb-1.5">Date *</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Date *</label>
               <input
                 required
                 type="date"
                 value={form.date}
                 onChange={(e) => setForm({ ...form, date: e.target.value })}
-                className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-neutral-400 mb-1.5">Weight (%)</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Weight (%)</label>
               <input
                 type="number"
                 min={0} max={100}
                 value={form.weight}
                 onChange={(e) => setForm({ ...form, weight: Number(e.target.value) })}
-                className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Location</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Location</label>
             <input
               value={form.location}
               onChange={(e) => setForm({ ...form, location: e.target.value })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               placeholder="e.g. Hall A, Room 201"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Score (if taken)</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Score (if taken)</label>
             <input
               type="number"
               min={0} max={100}
               value={form.score ?? ""}
               onChange={(e) => setForm({ ...form, score: e.target.value === "" ? null : Number(e.target.value) })}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               placeholder="Leave blank if not taken yet"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">Notes</label>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Notes</label>
             <textarea
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}
-              className="w-full bg-neutral-800 border border-white/10 text-white text-sm rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-violet-500"
+              className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-pink-500"
               placeholder="Topics covered, reminders..."
             />
           </div>
           <div className="flex gap-3 pt-2">
-            <button type="button" onClick={onClose} className="flex-1 py-2 rounded-lg bg-neutral-800 text-neutral-300 text-sm font-medium hover:bg-neutral-700 transition-colors">
+            <button type="button" onClick={onClose} className="flex-1 py-2 rounded-lg bg-pink-950 text-neutral-300 text-sm font-medium hover:bg-neutral-700 transition-colors">
               Cancel
             </button>
-            <button type="submit" className="flex-1 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+            <button type="submit" className="flex-1 py-2 rounded-lg bg-pink-600 text-pink-100 text-sm font-medium hover:bg-pink-500 transition-colors">
               {exam ? "Save Changes" : "Add Exam"}
             </button>
           </div>

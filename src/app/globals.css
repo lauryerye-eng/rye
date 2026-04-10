@@ -1,1 +1,54 @@
 @import "tailwindcss";
+
+@theme {
+  --color-pink-50: #fdf2f8;
+  --color-pink-100: #fce7f3;
+  --color-pink-200: #fbcfe8;
+  --color-pink-300: #f9a8d4;
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  --color-pink-700: #be185d;
+  --color-pink-800: #9d174d;
+  --color-pink-900: #831843;
+  --color-pink-950: #500724;
+
+  --color-black: #000000;
+}
+
+* {
+  border-color: theme('colors.pink.900');
+}
+
+body {
+  background-color: var(--color-black);
+  color: var(--color-pink-100);
+}
+
+a {
+  color: var(--color-pink-400);
+}
+
+a:hover {
+  color: var(--color-pink-300);
+}
+
+input, select, textarea {
+  background-color: theme('colors.pink.950');
+  border-color: theme('colors.pink.800');
+  color: theme('colors.pink.100');
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: theme('colors.pink.500');
+}
+
+button {
+  background-color: theme('colors.pink.600');
+  color: white;
+}
+
+button:hover {
+  background-color: theme('colors.pink.500');
+}
