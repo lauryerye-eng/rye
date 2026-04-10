@@ -23,7 +23,7 @@ export default function Nav({ active, onChange }: NavProps) {
           {/* Logo */}
           <div className="flex items-center gap-2 shrink-0">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center text-sm font-bold text-white">S</div>
-            <span className="font-semibold text-pink-100 hidden sm:block">StudySync</span>
+            <span className="font-semibold text-pink-100 hidden sm:block">Study Sync</span>
           </div>
 
           {/* Tabs */}
