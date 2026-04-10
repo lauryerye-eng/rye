@@ -138,9 +138,8 @@ export default function GradeTracker() {
               {/* Summary cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <GradeCard
-                  label="Current Grade"
+                  label={`${subject.name} Current`}
                   value={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "—"}
-                  sub={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "No data"}
                   color={
                     currentGrade === null ? "neutral" :
                     currentGrade >= subject.gradeGoal ? "green" :
@@ -148,9 +147,8 @@ export default function GradeTracker() {
                   }
                 />
                 <GradeCard
-                  label="Predicted Final"
+                  label={`${subject.name} Predicted`}
                   value={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "—"}
-                  sub={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "No graded items"}
                   color={
                     predictedGrade === null ? "neutral" :
                     predictedGrade >= subject.gradeGoal ? "green" :
@@ -159,7 +157,7 @@ export default function GradeTracker() {
                   tooltip="Based on current average applied to remaining items"
                 />
                 <GradeCard
-                  label="Goal"
+                  label={`${subject.name} Goal`}
                   value={gradeLetterFromScore(subject.gradeGoal)}
                   color="blue"
                 />
