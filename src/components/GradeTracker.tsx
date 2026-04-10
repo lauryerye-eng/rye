@@ -145,6 +145,10 @@ export default function GradeTracker() {
                     currentGrade >= subject.gradeGoal ? "green" :
                     currentGrade >= subject.gradeGoal - 5 ? "amber" : "rose"
                   }
+                  onEdit={() => {
+                    setEditingGradeId(null);
+                    setShowGradeForm(true);
+                  }}
                 />
                 <GradeCard
                   label={`${subject.name} Predicted`}
@@ -155,11 +159,19 @@ export default function GradeTracker() {
                     predictedGrade >= subject.gradeGoal - 5 ? "amber" : "rose"
                   }
                   tooltip="Based on current average applied to remaining items"
+                  onEdit={() => {
+                    setEditingGradeId(null);
+                    setShowGradeForm(true);
+                  }}
                 />
                 <GradeCard
                   label={`${subject.name} Goal`}
                   value={gradeLetterFromScore(subject.gradeGoal)}
                   color="blue"
+                  onEdit={() => {
+                    setEditingSubjectId(subject.id);
+                    setShowSubjectForm(true);
+                  }}
                 />
                 <GradeCard
                   label="Needed on Remaining"
@@ -314,21 +326,28 @@ export default function GradeTracker() {
 }
 
 function GradeCard({
-  label, value, sub, color, tooltip,
+  label, value, sub, color, tooltip, onEdit,
 }: {
   label: string;
   value: string;
   sub?: string;
   color: string;
   tooltip?: string;
+  onEdit?: () => void;
 }) {
   const c = getColorClasses(color);
   return (
     <div
       title={tooltip}
-      className={`p-3 rounded-xl border ${c.bgLight} ${c.border}`}
+      className={`p-3 rounded-xl border ${c.bgLight} ${c.border} ${onEdit ? "cursor-pointer hover:opacity-80 transition-opacity" : ""}`}
+      onClick={onEdit}
     >
-      <div className={`text-xl font-black ${c.text}`}>{value}</div>
+      <div className="flex items-center justify-between">
+        <div className={`text-xl font-black ${c.text}`}>{value}</div>
+        {onEdit && (
+          <button className="text-xs text-pink-400 hover:text-pink-100">✎</button>
+        )}
+      </div>
       <div className="text-xs text-pink-100 font-medium mt-0.5">{label}</div>
       {sub && <div className="text-xs text-pink-500 mt-0.5">{sub}</div>}
     </div>
