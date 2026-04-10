@@ -554,7 +554,7 @@ function SubjectForm({
   const [form, setForm] = useState<SubjectFormData>({
     name: subject?.name ?? "",
     color: subject?.color ?? "blue",
-    creditHours: subject?.creditHours ?? 3,
+    currentGrade: subject?.currentGrade ?? null,
     gradeGoal: subject?.gradeGoal ?? 90,
     examBoard: subject?.examBoard ?? "AQA",
     examSpec: subject?.examSpec ?? "",
@@ -629,12 +629,13 @@ function SubjectForm({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-pink-400 mb-1.5">Credit Hours</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Current Grade</label>
               <input
-                type="number" min={1} max={6}
-                value={form.creditHours}
-                onChange={(e) => setForm({ ...form, creditHours: Number(e.target.value) })}
+                type="number" min={0} max={100}
+                value={form.currentGrade ?? ""}
+                onChange={(e) => setForm({ ...form, currentGrade: e.target.value === "" ? null : Number(e.target.value) })}
                 className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+                placeholder="—"
               />
             </div>
             <div>

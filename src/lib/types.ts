@@ -6,7 +6,7 @@ export interface Subject {
   id: string;
   name: string;
   color: string; // tailwind color key e.g. "blue", "green", "purple"
-  creditHours: number;
+  currentGrade: number | null; // 0-100 or null if not yet graded
   gradeGoal: number; // 0-100
   examBoard: string; // UK exam board: AQA, Edexcel, OCR, WJEC, CCEA
   examSpec: string; // e.g. "Combined Science Trilogy", "Mathematics", "Physics"
