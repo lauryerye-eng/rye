@@ -125,7 +125,7 @@ export default function GradeTracker() {
                   <span className="text-xs text-pink-600">{s.examBoard} {s.examSpec && `• ${s.examSpec}`}</span>
                   {cur !== null && (
                     <span className={`text-xs font-bold ${selectedSubject === s.id ? "" : "text-pink-500"}`}>
-                      {cur.toFixed(1)}%
+                      {gradeLetterFromScore(cur)}
                     </span>
                   )}
                 </button>
@@ -140,7 +140,7 @@ export default function GradeTracker() {
                 <GradeCard
                   label="Current Grade"
                   value={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "—"}
-                  sub={currentGrade !== null ? `${currentGrade.toFixed(1)}%` : "No data"}
+                  sub={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "No data"}
                   color={
                     currentGrade === null ? "neutral" :
                     currentGrade >= subject.gradeGoal ? "green" :
@@ -150,7 +150,7 @@ export default function GradeTracker() {
                 <GradeCard
                   label="Predicted Final"
                   value={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "—"}
-                  sub={predictedGrade !== null ? `${predictedGrade.toFixed(1)}%` : "No graded items"}
+                  sub={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "No graded items"}
                   color={
                     predictedGrade === null ? "neutral" :
                     predictedGrade >= subject.gradeGoal ? "green" :
@@ -166,7 +166,7 @@ export default function GradeTracker() {
                 />
                 <GradeCard
                   label="Needed on Remaining"
-                  value={needed !== null ? `${needed.toFixed(1)}%` : "—"}
+                  value={needed !== null ? gradeLetterFromScore(needed) : "—"}
                   sub={needed === null ? "All graded" : needed > 100 ? "Goal unreachable" : needed <= subject.gradeGoal ? "On track!" : "Above average"}
                   color={
                     needed === null ? "neutral" :
@@ -262,7 +262,7 @@ export default function GradeTracker() {
                           <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
                             <div className={`h-full rounded-full ${c.bg}`} style={{ width: `${avg}%` }} />
                           </div>
-                          <span className="text-xs font-medium text-pink-100 w-12 text-right">{avg.toFixed(1)}%</span>
+                          <span className="text-xs font-medium text-pink-100 w-12 text-right">{gradeLetterFromScore(avg)}</span>
                           <span className="text-xs text-pink-500 w-14 text-right">{totalW}% weight</span>
                         </div>
                       );
@@ -376,7 +376,6 @@ function GradeRow({
             }`}>
               {letter}
             </span>
-            <span className="text-xs text-pink-500 ml-1.5">{pct.toFixed(1)}%</span>
             <div className="text-xs text-pink-600">{entry.score}/{entry.maxScore}</div>
           </>
         ) : (
@@ -505,7 +504,7 @@ function GradeEntryForm({
               (form.score / form.maxScore) * 100 >= 70 ? "bg-amber-600/20 text-amber-400" :
               "bg-rose-600/20 text-rose-400"
             }`}>
-              {((form.score / form.maxScore) * 100).toFixed(1)}% · {gradeLetterFromScore((form.score / form.maxScore) * 100)}
+              {gradeLetterFromScore((form.score / form.maxScore) * 100)} · {form.score}/{form.maxScore}
             </div>
           )}
           <div className="flex gap-3 pt-2">
