@@ -1,5 +1,6 @@
 export const SUBJECT_COLORS = [
   "blue", "violet", "amber", "green", "rose", "cyan", "orange", "pink", "teal", "indigo",
+  "pastel-blue", "pastel-lavender", "pastel-yellow", "pastel-mint", "pastel-peach", "pastel-rose", "pastel-sky", "pastel-lemon", "pastel-lime", "pastel-wine",
 ] as const;
 
 export type SubjectColor = (typeof SUBJECT_COLORS)[number];
@@ -91,6 +92,86 @@ export const COLOR_CLASSES: Record<string, {
     border: "border-indigo-600/30",
     badge: "bg-indigo-600/20 text-indigo-300 border border-indigo-600/30",
     dot: "bg-indigo-400",
+  },
+  "pastel-blue": {
+    bg: "bg-blue-200",
+    bgLight: "bg-blue-200/20",
+    text: "text-blue-300",
+    border: "border-blue-300/30",
+    badge: "bg-blue-200/20 text-blue-300 border border-blue-300/30",
+    dot: "bg-blue-300",
+  },
+  "pastel-lavender": {
+    bg: "bg-violet-200",
+    bgLight: "bg-violet-200/20",
+    text: "text-violet-300",
+    border: "border-violet-300/30",
+    badge: "bg-violet-200/20 text-violet-300 border border-violet-300/30",
+    dot: "bg-violet-300",
+  },
+  "pastel-yellow": {
+    bg: "bg-yellow-200",
+    bgLight: "bg-yellow-200/20",
+    text: "text-yellow-300",
+    border: "border-yellow-300/30",
+    badge: "bg-yellow-200/20 text-yellow-300 border border-yellow-300/30",
+    dot: "bg-yellow-300",
+  },
+  "pastel-mint": {
+    bg: "bg-emerald-200",
+    bgLight: "bg-emerald-200/20",
+    text: "text-emerald-300",
+    border: "border-emerald-300/30",
+    badge: "bg-emerald-200/20 text-emerald-300 border border-emerald-300/30",
+    dot: "bg-emerald-300",
+  },
+  "pastel-peach": {
+    bg: "bg-orange-200",
+    bgLight: "bg-orange-200/20",
+    text: "text-orange-300",
+    border: "border-orange-300/30",
+    badge: "bg-orange-200/20 text-orange-300 border border-orange-300/30",
+    dot: "bg-orange-300",
+  },
+  "pastel-rose": {
+    bg: "bg-rose-200",
+    bgLight: "bg-rose-200/20",
+    text: "text-rose-300",
+    border: "border-rose-300/30",
+    badge: "bg-rose-200/20 text-rose-300 border border-rose-300/30",
+    dot: "bg-rose-300",
+  },
+  "pastel-sky": {
+    bg: "bg-sky-200",
+    bgLight: "bg-sky-200/20",
+    text: "text-sky-300",
+    border: "border-sky-300/30",
+    badge: "bg-sky-200/20 text-sky-300 border border-sky-300/30",
+    dot: "bg-sky-300",
+  },
+  "pastel-lemon": {
+    bg: "bg-lime-200",
+    bgLight: "bg-lime-200/20",
+    text: "text-lime-300",
+    border: "border-lime-300/30",
+    badge: "bg-lime-200/20 text-lime-300 border border-lime-300/30",
+    dot: "bg-lime-300",
+  },
+  "pastel-lime": {
+    bg: "bg-green-200",
+    bgLight: "bg-green-200/20",
+    text: "text-green-300",
+    border: "border-green-300/30",
+    badge: "bg-green-200/20 text-green-300 border border-green-300/30",
+    dot: "bg-green-300",
+  },
+  "pastel-wine": {
+    bg: "bg-fuchsia-200",
+    bgLight: "bg-fuchsia-200/20",
+    text: "text-fuchsia-300",
+    border: "border-fuchsia-300/30",
+    badge: "bg-fuchsia-200/20 text-fuchsia-300 border border-fuchsia-300/30",
+    dot: "bg-fuchsia-300",
   },
 };
 
