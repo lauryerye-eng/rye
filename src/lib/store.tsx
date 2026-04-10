@@ -262,13 +262,16 @@ export function predictFinalGrade(gradeEntries: GradeEntry[], subjectId: string)
   return predictedTotal;
 }
 
-/** Grade letter from score */
+/** Grade letter from score (UK grades: U, 1-7) */
 export function gradeLetterFromScore(score: number): string {
-  if (score >= 90) return "A";
-  if (score >= 80) return "B";
-  if (score >= 70) return "C";
-  if (score >= 60) return "D";
-  return "F";
+  if (score >= 90) return "7";
+  if (score >= 80) return "6";
+  if (score >= 70) return "5";
+  if (score >= 60) return "4";
+  if (score >= 50) return "3";
+  if (score >= 40) return "2";
+  if (score >= 0) return "1";
+  return "U";
 }
 
 /** Days until date */
