@@ -1,6 +1,6 @@
 "use client";
 
-import { useApp, calcCurrentGrade, daysUntil } from "@/lib/store";
+import { useApp, calcCurrentGrade, daysUntil, gradeLetterFromScore } from "@/lib/store";
 import { getColorClasses } from "@/lib/colors";
 import type { Tab } from "./Nav";
 
@@ -189,8 +189,8 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                 </div>
                 <div className="mt-2">
                   <div className="flex justify-between text-xs text-pink-400 mb-1">
-                    <span>Current: {current !== null ? `${current.toFixed(1)}%` : "—"}</span>
-                    <span>Goal: {subject.gradeGoal}%</span>
+                    <span>Current: {current !== null ? gradeLetterFromScore(current) : "—"} ({current?.toFixed(1)}%)</span>
+                    <span>Goal: {gradeLetterFromScore(subject.gradeGoal)} ({subject.gradeGoal}%)</span>
                   </div>
                   <div className="h-1.5 rounded-full bg-pink-800/30 overflow-hidden">
                     <div

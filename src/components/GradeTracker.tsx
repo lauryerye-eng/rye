@@ -139,8 +139,8 @@ export default function GradeTracker() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <GradeCard
                   label="Current Grade"
-                  value={currentGrade !== null ? `${currentGrade.toFixed(1)}%` : "—"}
-                  sub={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "No data"}
+                  value={currentGrade !== null ? gradeLetterFromScore(currentGrade) : "—"}
+                  sub={currentGrade !== null ? `${currentGrade.toFixed(1)}%` : "No data"}
                   color={
                     currentGrade === null ? "neutral" :
                     currentGrade >= subject.gradeGoal ? "green" :
@@ -149,8 +149,8 @@ export default function GradeTracker() {
                 />
                 <GradeCard
                   label="Predicted Final"
-                  value={predictedGrade !== null ? `${predictedGrade.toFixed(1)}%` : "—"}
-                  sub={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "No graded items"}
+                  value={predictedGrade !== null ? gradeLetterFromScore(predictedGrade) : "—"}
+                  sub={predictedGrade !== null ? `${predictedGrade.toFixed(1)}%` : "No graded items"}
                   color={
                     predictedGrade === null ? "neutral" :
                     predictedGrade >= subject.gradeGoal ? "green" :
@@ -160,8 +160,8 @@ export default function GradeTracker() {
                 />
                 <GradeCard
                   label="Goal"
-                  value={`${subject.gradeGoal}%`}
-                  sub={gradeLetterFromScore(subject.gradeGoal)}
+                  value={gradeLetterFromScore(subject.gradeGoal)}
+                  sub={`${subject.gradeGoal}%`}
                   color="blue"
                 />
                 <GradeCard
@@ -374,9 +374,9 @@ function GradeRow({
               pct >= 70 ? "text-amber-400" :
               "text-rose-400"
             }`}>
-              {pct.toFixed(1)}%
+              {letter}
             </span>
-            <span className="text-xs text-pink-500 ml-1.5">{letter}</span>
+            <span className="text-xs text-pink-500 ml-1.5">{pct.toFixed(1)}%</span>
             <div className="text-xs text-pink-600">{entry.score}/{entry.maxScore}</div>
           </>
         ) : (
