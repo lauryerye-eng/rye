@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description: "A minimal Next.js starter template",
+  title: "StudySync — Assignment & Grade Tracker",
+  description: "Track assignments, plan study sessions, countdown to exams, and monitor your grades with predictions and goals.",
 };
 
 export default function RootLayout({
