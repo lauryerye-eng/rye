@@ -194,10 +194,7 @@ export default function ExamCountdown() {
                       <span className="truncate">{exam.location}</span>
                     </div>
                   )}
-                  <div className="flex items-center gap-1.5">
-                    <span>⚖️</span>
-                    <span>Worth {exam.weight}% of grade</span>
-                  </div>
+
                 </div>
 
                 {exam.notes && (
