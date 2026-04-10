@@ -373,16 +373,6 @@ function ExamForm({
                 className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-pink-400 mb-1.5">Weight (%)</label>
-              <input
-                type="number"
-                min={0} max={100}
-                value={form.weight}
-                onChange={(e) => setForm({ ...form, weight: Number(e.target.value) })}
-                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
-              />
-            </div>
           </div>
           <div>
             <label className="block text-xs font-medium text-pink-400 mb-1.5">Location</label>
