@@ -574,13 +574,15 @@ function SubjectForm({
                     key={color}
                     type="button"
                     onClick={() => setForm({ ...form, color })}
-                    className={`w-7 h-7 rounded-full ${cc.bg} transition-transform ${
-                      form.color === color ? "ring-2 ring-white ring-offset-2 ring-offset-neutral-900 scale-110" : "opacity-70 hover:opacity-100"
+                    className={`w-8 h-8 rounded-full ${cc.bg} border-2 border-white/20 transition-transform ${
+                      form.color === color ? "ring-2 ring-white ring-offset-2 ring-offset-neutral-900 scale-110" : "opacity-90 hover:opacity-100"
                     }`}
+                    title={color.replace("pastel-", "pastel ")}
                   />
                 );
               })}
             </div>
+            <p className="text-xs text-pink-500 mt-2">Click to select • Hover for name</p>
           </div>
           <div>
             <label className="block text-xs font-medium text-pink-400 mb-1.5">Exam Board</label>
