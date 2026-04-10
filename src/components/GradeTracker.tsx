@@ -122,7 +122,7 @@ export default function GradeTracker() {
                 >
                   <span className={`w-2 h-2 rounded-full ${sc.dot}`} />
                   <span>{s.name}</span>
-                  <span className="text-xs text-pink-600">{s.examBoard}</span>
+                  <span className="text-xs text-pink-600">{s.examBoard} {s.examSpec && `• ${s.examSpec}`}</span>
                   {cur !== null && (
                     <span className={`text-xs font-bold ${selectedSubject === s.id ? "" : "text-pink-500"}`}>
                       {cur.toFixed(1)}%
@@ -537,6 +537,7 @@ function SubjectForm({
     creditHours: subject?.creditHours ?? 3,
     gradeGoal: subject?.gradeGoal ?? 90,
     examBoard: subject?.examBoard ?? "AQA",
+    examSpec: subject?.examSpec ?? "",
   });
 
   function handleSubmit(e: React.FormEvent) {
@@ -594,6 +595,15 @@ function SubjectForm({
               <option value="WJEC">WJEC</option>
               <option value="CCEA">CCEA</option>
             </select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-pink-400 mb-1.5">Exam Specification</label>
+            <input
+              value={form.examSpec}
+              onChange={(e) => setForm({ ...form, examSpec: e.target.value })}
+              className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+              placeholder="e.g. Combined Science Trilogy, Mathematics, Physics"
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>

@@ -9,6 +9,7 @@ export interface Subject {
   creditHours: number;
   gradeGoal: number; // 0-100
   examBoard: string; // UK exam board: AQA, Edexcel, OCR, WJEC, CCEA
+  examSpec: string; // e.g. "Combined Science Trilogy", "Mathematics", "Physics"
 }
 
 export interface Assignment {
