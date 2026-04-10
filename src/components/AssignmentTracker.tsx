@@ -157,7 +157,6 @@ export default function AssignmentTracker() {
                         : days === 1 ? "Due tomorrow"
                         : `Due in ${days}d`}
                     </span>
-                    <span className="text-xs text-neutral-600">Weight: {a.weight}%</span>
                   </div>
                 </div>
 
@@ -293,16 +292,6 @@ function AssignmentForm({
                 type="date"
                 value={form.dueDate}
                 onChange={(e) => setForm({ ...form, dueDate: e.target.value })}
-                className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-pink-400 mb-1.5">Weight (%)</label>
-              <input
-                type="number"
-                min={0} max={100}
-                value={form.weight}
-                onChange={(e) => setForm({ ...form, weight: Number(e.target.value) })}
                 className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
