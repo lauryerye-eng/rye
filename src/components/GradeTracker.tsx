@@ -84,12 +84,31 @@ export default function GradeTracker() {
             + Subject
           </button>
           {subject && (
-            <button
-              onClick={() => { setEditingGradeId(null); setShowGradeForm(true); }}
-              className="px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
-            >
-              + Grade Entry
-            </button>
+            <>
+              <button
+                onClick={() => { setEditingGradeId(null); setShowGradeForm(true); }}
+                className="px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
+              >
+                + Grade Entry
+              </button>
+              {subjectEntries.length > 0 && (
+                <button
+                  onClick={() => {
+                    if (!confirm("Clear all grade entries for this subject?")) return;
+                    dispatch({
+                      type: "LOAD_STATE",
+                      payload: {
+                        ...state,
+                        gradeEntries: state.gradeEntries.filter(g => g.subjectId !== selectedSubject),
+                      },
+                    });
+                  }}
+                  className="px-3 py-1.5 bg-rose-900/50 hover:bg-rose-800/50 text-rose-300 text-sm font-medium rounded-lg transition-colors border border-rose-800"
+                >
+                  Clear
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>
