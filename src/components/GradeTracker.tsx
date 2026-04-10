@@ -33,9 +33,6 @@ export default function GradeTracker() {
   const gradedEntries = subjectEntries.filter((g) => g.score !== null);
   const ungradedEntries = subjectEntries.filter((g) => g.score === null);
 
-  const totalGradedWeight = gradedEntries.reduce((s, g) => s + g.weight, 0);
-  const totalWeight = subjectEntries.reduce((s, g) => s + g.weight, 0);
-
   const editingGrade = editingGradeId ? gradeEntries.find((g) => g.id === editingGradeId) : null;
   const editingSubject = editingSubjectId ? subjects.find((s) => s.id === editingSubjectId) : null;
 
@@ -190,7 +187,6 @@ export default function GradeTracker() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-pink-200">Grade Progress</span>
                   <div className="flex items-center gap-4 text-xs text-pink-500">
-                    <span>Graded weight: {totalGradedWeight}% / {totalWeight}%</span>
                     <button
                       onClick={() => { setEditingSubjectId(subject.id); setShowSubjectForm(true); }}
                       className="text-pink-500 hover:text-pink-100 transition-colors"
