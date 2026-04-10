@@ -19,10 +19,10 @@ import type {
 // ─── Seed data ────────────────────────────────────────────────────────────────
 
 const SEED_SUBJECTS: Subject[] = [
-  { id: "s1", name: "Mathematics", color: "blue", creditHours: 4, gradeGoal: 90, examBoard: "Edexcel", examSpec: "Mathematics" },
-  { id: "s2", name: "Computer Science", color: "violet", creditHours: 3, gradeGoal: 95, examBoard: "OCR", examSpec: "Computer Science" },
-  { id: "s3", name: "Physics", color: "amber", creditHours: 3, gradeGoal: 85, examBoard: "AQA", examSpec: "Physics" },
-  { id: "s4", name: "English Literature", color: "green", creditHours: 2, gradeGoal: 88, examBoard: "WJEC", examSpec: "English Literature" },
+  { id: "s1", name: "Mathematics", color: "blue", creditHours: 4, gradeGoal: 70, examBoard: "Edexcel", examSpec: "Mathematics" },
+  { id: "s2", name: "Computer Science", color: "violet", creditHours: 3, gradeGoal: 80, examBoard: "OCR", examSpec: "Computer Science" },
+  { id: "s3", name: "Physics", color: "amber", creditHours: 3, gradeGoal: 70, examBoard: "AQA", examSpec: "Physics" },
+  { id: "s4", name: "English Literature", color: "green", creditHours: 2, gradeGoal: 70, examBoard: "WJEC", examSpec: "English Literature" },
 ];
 
 const today = new Date();
@@ -262,15 +262,17 @@ export function predictFinalGrade(gradeEntries: GradeEntry[], subjectId: string)
   return predictedTotal;
 }
 
-/** Grade letter from score (UK grades: U, 1-7) */
+/** Grade letter from score (UK grades: U, 1-9) */
 export function gradeLetterFromScore(score: number): string {
-  if (score >= 90) return "7";
-  if (score >= 80) return "6";
-  if (score >= 70) return "5";
-  if (score >= 60) return "4";
-  if (score >= 50) return "3";
-  if (score >= 40) return "2";
-  if (score >= 0) return "1";
+  if (score >= 90) return "9";
+  if (score >= 80) return "8";
+  if (score >= 70) return "7";
+  if (score >= 60) return "6";
+  if (score >= 50) return "5";
+  if (score >= 40) return "4";
+  if (score >= 30) return "3";
+  if (score >= 20) return "2";
+  if (score >= 10) return "1";
   return "U";
 }
 

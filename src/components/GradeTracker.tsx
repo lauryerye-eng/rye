@@ -616,12 +616,13 @@ function SubjectForm({
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-pink-400 mb-1.5">Grade Goal (%)</label>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Grade Goal (1-9)</label>
               <input
-                type="number" min={0} max={100}
+                type="number" min={1} max={9}
                 value={form.gradeGoal}
                 onChange={(e) => setForm({ ...form, gradeGoal: Number(e.target.value) })}
                 className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+                placeholder="e.g. 7"
               />
             </div>
           </div>
