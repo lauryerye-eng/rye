@@ -377,7 +377,6 @@ function GradeRow({
           <span className="text-xs text-pink-500">
             {new Date(entry.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </span>
-          <span className="text-xs text-pink-600">Weight: {entry.weight}%</span>
         </div>
       </div>
 
@@ -474,16 +473,7 @@ function GradeEntryForm({
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <label className="block text-xs font-medium text-pink-400 mb-1.5">Weight (%)</label>
-              <input
-                type="number" min={0} max={100}
-                value={form.weight}
-                onChange={(e) => setForm({ ...form, weight: Number(e.target.value) })}
-                className="w-full bg-pink-950 border border-pink-800 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
-              />
-            </div>
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium text-pink-400 mb-1.5">Score</label>
               <input
