@@ -161,7 +161,6 @@ export default function GradeTracker() {
                 <GradeCard
                   label="Goal"
                   value={gradeLetterFromScore(subject.gradeGoal)}
-                  sub={`${subject.gradeGoal}%`}
                   color="blue"
                 />
                 <GradeCard
@@ -217,7 +216,7 @@ export default function GradeTracker() {
                 </div>
                 <div className="flex justify-between text-xs text-pink-500 mt-1">
                   <span>0%</span>
-                  <span className="text-pink-100/40" style={{ marginLeft: `${subject.gradeGoal - 5}%` }}>Goal: {subject.gradeGoal}%</span>
+                  <span className="text-pink-100/40">Goal: {gradeLetterFromScore(subject.gradeGoal)}</span>
                   <span>100%</span>
                 </div>
               </div>
@@ -321,7 +320,7 @@ function GradeCard({
 }: {
   label: string;
   value: string;
-  sub: string;
+  sub?: string;
   color: string;
   tooltip?: string;
 }) {
@@ -333,7 +332,7 @@ function GradeCard({
     >
       <div className={`text-xl font-black ${c.text}`}>{value}</div>
       <div className="text-xs text-pink-100 font-medium mt-0.5">{label}</div>
-      <div className="text-xs text-pink-500 mt-0.5">{sub}</div>
+      {sub && <div className="text-xs text-pink-500 mt-0.5">{sub}</div>}
     </div>
   );
 }
