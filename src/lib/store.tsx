@@ -69,22 +69,22 @@ const SEED_ASSIGNMENTS: Assignment[] = [
 const SEED_EXAMS: Exam[] = [
   {
     id: "e1", subjectId: "s1", title: "Midterm Exam",
-    date: fmt(addDays(today, 14)), location: "Hall A, Room 201",
+    date: fmt(addDays(today, 14)), time: "09:00", location: "Hall A, Room 201",
     weight: 30, score: null, notes: "Covers chapters 1–10",
   },
   {
     id: "e2", subjectId: "s2", title: "Practical Exam",
-    date: fmt(addDays(today, 21)), location: "CS Lab 3",
+    date: fmt(addDays(today, 21)), time: "13:00", location: "CS Lab 3",
     weight: 25, score: null, notes: "Bring student ID",
   },
   {
     id: "e3", subjectId: "s3", title: "Final Exam",
-    date: fmt(addDays(today, 35)), location: "Main Hall",
+    date: fmt(addDays(today, 35)), time: "09:00", location: "Main Hall",
     weight: 40, score: null, notes: "Comprehensive — all units",
   },
   {
     id: "e4", subjectId: "s4", title: "Midterm",
-    date: fmt(addDays(today, -10)), location: "Room 105",
+    date: fmt(addDays(today, -10)), time: "14:00", location: "Room 105",
     weight: 35, score: 82, notes: "",
   },
 ];

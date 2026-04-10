@@ -30,6 +30,7 @@ export interface Exam {
   subjectId: string;
   title: string;
   date: string; // ISO date string
+  time: string; // "HH:MM"
   location: string;
   weight: number; // % of final grade
   score: number | null; // 0-100 or null if not taken

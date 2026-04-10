@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useApp, genId, daysUntil } from "@/lib/store";
 import { getColorClasses } from "@/lib/colors";
+import { processGCSEImage } from "@/lib/ocr";
 import type { Exam } from "@/lib/types";
 
 export default function ExamCountdown() {
@@ -12,6 +13,9 @@ export default function ExamCountdown() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showPast, setShowPast] = useState(false);
+  const [showImport, setShowImport] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const upcoming = exams
     .filter((e) => daysUntil(e.date) >= 0)
@@ -27,17 +31,94 @@ export default function ExamCountdown() {
     dispatch({ type: "DELETE_EXAM", payload: id });
   }
 
+  async function handleImageImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setImporting(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const imageData = event.target?.result as string;
+        const result = await processGCSEImage(imageData);
+        
+        for (const exam of result.exams) {
+          const subjectId = subjects[0]?.id ?? "";
+          if (subjectId) {
+            dispatch({
+              type: "ADD_EXAM",
+              payload: {
+                id: genId(),
+                subjectId,
+                title: exam.title,
+                date: exam.date,
+                time: exam.time,
+                location: "",
+                weight: 10,
+                score: null,
+                notes: "Imported from timetable",
+              },
+            });
+          }
+        }
+        setShowImport(false);
+        setImporting(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      setImporting(false);
+    }
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-bold text-pink-100">Exams</h1>
-        <button
-          onClick={() => { setEditingId(null); setShowForm(true); }}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
-        >
-          + Add Exam
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowImport(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-pink-800 hover:bg-pink-700 text-pink-100 text-sm font-medium rounded-lg transition-colors"
+          >
+            📷 Import Timetable
+          </button>
+          <button
+            onClick={() => { setEditingId(null); setShowForm(true); }}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-pink-600 hover:bg-pink-500 text-pink-100 text-sm font-medium rounded-lg transition-colors"
+          >
+            + Add Exam
+          </button>
+        </div>
       </div>
+
+      {/* Import Modal */}
+      {showImport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-black border border-pink-800 rounded-2xl w-full max-w-md shadow-2xl">
+            <div className="flex items-center justify-between p-5 border-b border-pink-900">
+              <h2 className="font-bold text-pink-100">Import GCSE Timetable</h2>
+              <button onClick={() => setShowImport(false)} className="text-pink-400 hover:text-pink-100">✕</button>
+            </div>
+            <div className="p-5 space-y-4">
+              <p className="text-pink-300 text-sm">
+                Take a photo of your GCSE exam timetable and we&apos;ll automatically add all your exams.
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageImport}
+                className="w-full text-pink-300 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-pink-600 file:text-pink-100 hover:file:bg-pink-500"
+              />
+              {importing && (
+                <div className="text-center py-4">
+                  <div className="animate-spin text-2xl mb-2">⏳</div>
+                  <p className="text-pink-400 text-sm">Processing image...</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Upcoming exams */}
       {upcoming.length === 0 ? (
@@ -105,6 +186,7 @@ export default function ExamCountdown() {
                   <div className="flex items-center gap-1.5">
                     <span>📅</span>
                     <span>{new Date(exam.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })}</span>
+                    {exam.time && <span>• {exam.time}</span>}
                   </div>
                   {exam.location && (
                     <div className="flex items-center gap-1.5">
@@ -232,6 +314,7 @@ function ExamForm({
     subjectId: exam?.subjectId ?? (subjects[0]?.id ?? ""),
     title: exam?.title ?? "",
     date: exam?.date ?? new Date().toISOString().split("T")[0],
+    time: exam?.time ?? "09:00",
     location: exam?.location ?? "",
     weight: exam?.weight ?? 30,
     score: exam?.score ?? null,
@@ -273,7 +356,7 @@ function ExamForm({
               {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-medium text-pink-400 mb-1.5">Date *</label>
               <input
@@ -281,6 +364,15 @@ function ExamForm({
                 type="date"
                 value={form.date}
                 onChange={(e) => setForm({ ...form, date: e.target.value })}
+                className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-pink-400 mb-1.5">Time</label>
+              <input
+                type="time"
+                value={form.time}
+                onChange={(e) => setForm({ ...form, time: e.target.value })}
                 className="w-full bg-pink-950 border border-white/10 text-pink-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
               />
             </div>
