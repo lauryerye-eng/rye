@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**App Status**: ✅ StudySync — Assignment & Grade Tracker fully built
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+A complete student productivity app built on the Next.js starter. All core features are implemented and passing typecheck + lint.
 
 ## Recently Completed
 
@@ -14,23 +14,33 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 - [x] ESLint configuration
 - [x] Memory bank documentation
 - [x] Recipe system for common features
+- [x] StudySync app — full assignment/exam/study/grade tracker
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| `src/app/page.tsx` | Renders AppShell | ✅ Done |
+| `src/app/layout.tsx` | Root layout with StudySync metadata | ✅ Done |
+| `src/app/globals.css` | Global styles | ✅ Done |
+| `src/lib/types.ts` | TypeScript types for all entities | ✅ Done |
+| `src/lib/store.tsx` | AppContext with useReducer + localStorage | ✅ Done |
+| `src/lib/colors.ts` | Subject color utility classes | ✅ Done |
+| `src/components/AppShell.tsx` | Root shell wrapping AppProvider + Nav | ✅ Done |
+| `src/components/Nav.tsx` | Top navigation bar with 5 tabs | ✅ Done |
+| `src/components/Dashboard.tsx` | Overview: stats, due soon, countdowns, grades | ✅ Done |
+| `src/components/AssignmentTracker.tsx` | CRUD assignments, status/priority, filtering | ✅ Done |
+| `src/components/ExamCountdown.tsx` | Countdown cards with urgency colors | ✅ Done |
+| `src/components/StudyPlanner.tsx` | Week calendar + list view for study sessions | ✅ Done |
+| `src/components/GradeTracker.tsx` | Per-subject: current grade, prediction, goal, breakdown | ✅ Done |
 
 ## Current Focus
 
-The template is ready. Next steps depend on user requirements:
-
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+The app is complete. Potential extensions:
+- Add GPA calculator across all subjects
+- Export to PDF/CSV
+- Notification reminders
+- Dark/light theme toggle
 
 ## Quick Start Guide
 
@@ -85,3 +95,4 @@ export async function GET() {
 | Date | Changes |
 |------|---------|
 | Initial | Template created with base setup |
+| 2026-04-10 | Built full StudySync app: assignments, exams, study planner, grade tracker |
