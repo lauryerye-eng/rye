@@ -19,10 +19,10 @@ import type {
 // ─── Seed data ────────────────────────────────────────────────────────────────
 
 const SEED_SUBJECTS: Subject[] = [
-  { id: "s1", name: "Mathematics", color: "blue", creditHours: 4, gradeGoal: 90 },
-  { id: "s2", name: "Computer Science", color: "violet", creditHours: 3, gradeGoal: 95 },
-  { id: "s3", name: "Physics", color: "amber", creditHours: 3, gradeGoal: 85 },
-  { id: "s4", name: "English Literature", color: "green", creditHours: 2, gradeGoal: 88 },
+  { id: "s1", name: "Mathematics", color: "blue", creditHours: 4, gradeGoal: 90, examBoard: "Edexcel" },
+  { id: "s2", name: "Computer Science", color: "violet", creditHours: 3, gradeGoal: 95, examBoard: "OCR" },
+  { id: "s3", name: "Physics", color: "amber", creditHours: 3, gradeGoal: 85, examBoard: "AQA" },
+  { id: "s4", name: "English Literature", color: "green", creditHours: 2, gradeGoal: 88, examBoard: "WJEC" },
 ];
 
 const today = new Date();

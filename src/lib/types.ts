@@ -8,6 +8,7 @@ export interface Subject {
   color: string; // tailwind color key e.g. "blue", "green", "purple"
   creditHours: number;
   gradeGoal: number; // 0-100
+  examBoard: string; // UK exam board: AQA, Edexcel, OCR, WJEC, CCEA
 }
 
 export interface Assignment {
