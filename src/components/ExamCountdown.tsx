@@ -31,6 +31,17 @@ export default function ExamCountdown() {
     dispatch({ type: "DELETE_EXAM", payload: id });
   }
 
+  function findSubjectByName(examTitle: string): string {
+    const titleLower = examTitle.toLowerCase();
+    for (const subject of subjects) {
+      const subjectName = subject.name.toLowerCase();
+      if (titleLower.includes(subjectName) || subjectName.includes(titleLower)) {
+        return subject.id;
+      }
+    }
+    return subjects[0]?.id ?? "";
+  }
+
   async function handleImageImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -43,7 +54,7 @@ export default function ExamCountdown() {
         const result = await processGCSEImage(imageData);
         
         for (const exam of result.exams) {
-          const subjectId = subjects[0]?.id ?? "";
+          const subjectId = findSubjectByName(exam.title);
           if (subjectId) {
             dispatch({
               type: "ADD_EXAM",
