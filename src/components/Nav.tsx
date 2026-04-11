@@ -1,5 +1,7 @@
 "use client";
 
+import { logout } from "@/app/actions";
+
 type Tab = "dashboard" | "assignments" | "exams" | "study" | "grades";
 
 interface NavProps {
@@ -43,6 +45,14 @@ export default function Nav({ active, onChange }: NavProps) {
               </button>
             ))}
           </nav>
+
+          {/* Logout */}
+          <button
+            onClick={() => logout()}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-pink-700 hover:text-pink-200 hover:bg-pink-900/20 transition-colors"
+          >
+            <span>Logout</span>
+          </button>
         </div>
       </div>
     </header>

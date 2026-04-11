@@ -9,11 +9,11 @@ import ExamCountdown from "./ExamCountdown";
 import StudyPlanner from "./StudyPlanner";
 import GradeTracker from "./GradeTracker";
 
-export default function AppShell() {
+export default function AppShell({ userId }: { userId: number }) {
   const [tab, setTab] = useState<Tab>("dashboard");
 
   return (
-    <AppProvider>
+    <AppProvider userId={userId}>
       <div className="min-h-screen bg-black text-pink-100">
         <Nav active={tab} onChange={setTab} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">

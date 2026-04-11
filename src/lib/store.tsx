@@ -5,25 +5,19 @@ import {
   useContext,
   useReducer,
   useEffect,
+  useState,
   type ReactNode,
 } from "react";
+import { db } from "@/db";
+import { subjects as subjectsTable, gradeEntries as gradeEntriesTable, assignments as assignmentsTable, exams as examsTable, studySessions as studySessionsTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import type {
-  AppState,
   Subject,
   Assignment,
   Exam,
   StudySession,
   GradeEntry,
 } from "./types";
-
-// ─── Seed data ────────────────────────────────────────────────────────────────
-
-const SEED_SUBJECTS: Subject[] = [
-  { id: "s1", name: "Mathematics", color: "blue", currentGrade: 75, gradeGoal: 70, examBoard: "Edexcel", examSpec: "Mathematics" },
-  { id: "s2", name: "Computer Science", color: "violet", currentGrade: 82, gradeGoal: 80, examBoard: "OCR", examSpec: "Computer Science" },
-  { id: "s3", name: "Physics", color: "amber", currentGrade: 68, gradeGoal: 70, examBoard: "AQA", examSpec: "Physics" },
-  { id: "s4", name: "English Literature", color: "green", currentGrade: 71, gradeGoal: 70, examBoard: "WJEC", examSpec: "English Literature" },
-];
 
 const today = new Date();
 const fmt = (d: Date) => d.toISOString().split("T")[0];
@@ -33,105 +27,20 @@ const addDays = (d: Date, n: number) => {
   return r;
 };
 
-const SEED_ASSIGNMENTS: Assignment[] = [
-  {
-    id: "a1", subjectId: "s1", title: "Problem Set 5",
-    description: "Chapters 8–10 integration problems",
-    dueDate: fmt(addDays(today, 3)), priority: "high", status: "in_progress",
-    weight: 10, score: null, createdAt: fmt(today),
-  },
-  {
-    id: "a2", subjectId: "s2", title: "Binary Search Tree Implementation",
-    description: "Implement BST with insert, delete, search",
-    dueDate: fmt(addDays(today, 7)), priority: "high", status: "pending",
-    weight: 15, score: null, createdAt: fmt(today),
-  },
-  {
-    id: "a3", subjectId: "s3", title: "Lab Report — Wave Motion",
-    description: "Document experiment results and analysis",
-    dueDate: fmt(addDays(today, 5)), priority: "medium", status: "pending",
-    weight: 8, score: null, createdAt: fmt(today),
-  },
-  {
-    id: "a4", subjectId: "s4", title: "Essay: Symbolism in Gatsby",
-    description: "1500 word analytical essay",
-    dueDate: fmt(addDays(today, 10)), priority: "medium", status: "pending",
-    weight: 12, score: null, createdAt: fmt(today),
-  },
-  {
-    id: "a5", subjectId: "s1", title: "Problem Set 4",
-    description: "Completed differential equations",
-    dueDate: fmt(addDays(today, -5)), priority: "medium", status: "completed",
-    weight: 10, score: 87, createdAt: fmt(addDays(today, -14)),
-  },
-];
+interface AppState {
+  subjects: Subject[];
+  assignments: Assignment[];
+  exams: Exam[];
+  studySessions: StudySession[];
+  gradeEntries: GradeEntry[];
+}
 
-const SEED_EXAMS: Exam[] = [
-  {
-    id: "e1", subjectId: "s1", title: "Midterm Exam",
-    date: fmt(addDays(today, 14)), time: "09:00", location: "Hall A, Room 201",
-    weight: 30, score: null, notes: "Covers chapters 1–10",
-  },
-  {
-    id: "e2", subjectId: "s2", title: "Practical Exam",
-    date: fmt(addDays(today, 21)), time: "13:00", location: "CS Lab 3",
-    weight: 25, score: null, notes: "Bring student ID",
-  },
-  {
-    id: "e3", subjectId: "s3", title: "Final Exam",
-    date: fmt(addDays(today, 35)), time: "09:00", location: "Main Hall",
-    weight: 40, score: null, notes: "Comprehensive — all units",
-  },
-  {
-    id: "e4", subjectId: "s4", title: "Midterm",
-    date: fmt(addDays(today, -10)), time: "14:00", location: "Room 105",
-    weight: 35, score: 82, notes: "",
-  },
-];
-
-const SEED_SESSIONS: StudySession[] = [
-  {
-    id: "ss1", subjectId: "s1", title: "Integration Practice",
-    date: fmt(addDays(today, 1)), startTime: "09:00", endTime: "11:00",
-    status: "planned", notes: "Focus on u-substitution",
-  },
-  {
-    id: "ss2", subjectId: "s2", title: "BST Coding Session",
-    date: fmt(addDays(today, 2)), startTime: "14:00", endTime: "16:30",
-    status: "planned", notes: "Work through deletion edge cases",
-  },
-  {
-    id: "ss3", subjectId: "s3", title: "Wave Motion Review",
-    date: fmt(today), startTime: "10:00", endTime: "12:00",
-    status: "planned", notes: "",
-  },
-  {
-    id: "ss4", subjectId: "s1", title: "Derivatives Review",
-    date: fmt(addDays(today, -2)), startTime: "09:00", endTime: "10:30",
-    status: "completed", notes: "Covered chain rule thoroughly",
-  },
-];
-
-const SEED_GRADES: GradeEntry[] = [
-  { id: "g1", subjectId: "s1", title: "Problem Set 1", type: "assignment", weight: 10, score: 92, maxScore: 100, date: fmt(addDays(today, -60)) },
-  { id: "g2", subjectId: "s1", title: "Problem Set 2", type: "assignment", weight: 10, score: 88, maxScore: 100, date: fmt(addDays(today, -45)) },
-  { id: "g3", subjectId: "s1", title: "Problem Set 3", type: "assignment", weight: 10, score: 95, maxScore: 100, date: fmt(addDays(today, -30)) },
-  { id: "g4", subjectId: "s1", title: "Problem Set 4", type: "assignment", weight: 10, score: 87, maxScore: 100, date: fmt(addDays(today, -5)) },
-  { id: "g5", subjectId: "s1", title: "Quiz 1", type: "quiz", weight: 5, score: 90, maxScore: 100, date: fmt(addDays(today, -50)) },
-  { id: "g6", subjectId: "s2", title: "Project 1 — Linked List", type: "project", weight: 20, score: 96, maxScore: 100, date: fmt(addDays(today, -40)) },
-  { id: "g7", subjectId: "s2", title: "Quiz 1", type: "quiz", weight: 10, score: 88, maxScore: 100, date: fmt(addDays(today, -25)) },
-  { id: "g8", subjectId: "s3", title: "Lab Report 1", type: "assignment", weight: 8, score: 78, maxScore: 100, date: fmt(addDays(today, -35)) },
-  { id: "g9", subjectId: "s3", title: "Midterm Quiz", type: "quiz", weight: 12, score: 82, maxScore: 100, date: fmt(addDays(today, -20)) },
-  { id: "g10", subjectId: "s4", title: "Essay 1", type: "assignment", weight: 15, score: 91, maxScore: 100, date: fmt(addDays(today, -28)) },
-  { id: "g11", subjectId: "s4", title: "Midterm", type: "exam", weight: 35, score: 82, maxScore: 100, date: fmt(addDays(today, -10)) },
-];
-
-const INITIAL_STATE: AppState = {
-  subjects: SEED_SUBJECTS,
-  assignments: SEED_ASSIGNMENTS,
-  exams: SEED_EXAMS,
-  studySessions: SEED_SESSIONS,
-  gradeEntries: SEED_GRADES,
+const EMPTY_STATE: AppState = {
+  subjects: [],
+  assignments: [],
+  exams: [],
+  studySessions: [],
+  gradeEntries: [],
 };
 
 // ─── Actions ──────────────────────────────────────────────────────────────────
@@ -187,30 +96,121 @@ const AppContext = createContext<AppContextValue | null>(null);
 
 const STORAGE_KEY = "studysync_data";
 
-export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+async function loadUserData(userId: number): Promise<AppState> {
+  const userSubjects = await db.select().from(subjectsTable).where(eq(subjectsTable.userId, userId));
+  const userGradeEntries = await db.select().from(gradeEntriesTable).where(eq(gradeEntriesTable.userId, userId));
+  const userAssignments = await db.select().from(assignmentsTable).where(eq(assignmentsTable.userId, userId));
+  const userExams = await db.select().from(examsTable).where(eq(examsTable.userId, userId));
+  const userSessions = await db.select().from(studySessionsTable).where(eq(studySessionsTable.userId, userId));
 
-  // Load from localStorage on mount
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as AppState;
-        dispatch({ type: "LOAD_STATE", payload: parsed });
-      }
-    } catch {
-      // ignore parse errors, use seed data
+  if (userSubjects.length === 0) {
+    const seedSubjects = [
+      { name: "Mathematics", color: "blue", currentGrade: 75, gradeGoal: 70, examBoard: "Edexcel", examSpec: "Mathematics" },
+      { name: "Computer Science", color: "violet", currentGrade: 82, gradeGoal: 80, examBoard: "OCR", examSpec: "Computer Science" },
+      { name: "Physics", color: "amber", currentGrade: 68, gradeGoal: 70, examBoard: "AQA", examSpec: "Physics" },
+    ];
+    
+    for (const s of seedSubjects) {
+      await db.insert(subjectsTable).values({
+        id: genId(),
+        userId,
+        name: s.name,
+        color: s.color,
+        currentGrade: s.currentGrade,
+        gradeGoal: s.gradeGoal,
+        examBoard: s.examBoard,
+        examSpec: s.examSpec,
+      });
     }
-  }, []);
 
-  // Persist to localStorage on every change
+    const newSubjects = await db.select().from(subjectsTable).where(eq(subjectsTable.userId, userId));
+    return {
+      subjects: newSubjects.map((s: typeof subjectsTable.$inferSelect) => ({
+        id: s.id,
+        name: s.name,
+        color: s.color,
+        currentGrade: s.currentGrade,
+        gradeGoal: s.gradeGoal,
+        examBoard: s.examBoard,
+        examSpec: s.examSpec ?? "",
+      })),
+      gradeEntries: [],
+      assignments: [],
+      exams: [],
+      studySessions: [],
+    };
+  }
+
+  return {
+    subjects: userSubjects.map((s: typeof subjectsTable.$inferSelect) => ({
+      id: s.id,
+      name: s.name,
+      color: s.color,
+      currentGrade: s.currentGrade,
+      gradeGoal: s.gradeGoal,
+      examBoard: s.examBoard,
+      examSpec: s.examSpec ?? "",
+    })),
+    gradeEntries: userGradeEntries.map((g: typeof gradeEntriesTable.$inferSelect) => ({
+      id: g.id,
+      subjectId: g.subjectId,
+      title: g.title,
+      type: g.type as GradeEntry["type"],
+      weight: g.weight,
+      score: g.score,
+      maxScore: g.maxScore,
+      date: g.date,
+    })),
+    assignments: userAssignments.map((a: typeof assignmentsTable.$inferSelect) => ({
+      id: a.id,
+      subjectId: a.subjectId,
+      title: a.title,
+      description: a.description,
+      dueDate: a.dueDate,
+      priority: a.priority as Assignment["priority"],
+      status: a.status as Assignment["status"],
+      weight: a.weight,
+      score: a.score,
+      createdAt: a.createdAt,
+    })),
+    exams: userExams.map((e: typeof examsTable.$inferSelect) => ({
+      id: e.id,
+      subjectId: e.subjectId,
+      title: e.title,
+      date: e.date,
+      time: e.time,
+      location: e.location ?? "",
+      weight: e.weight,
+      score: e.score,
+      notes: e.notes ?? "",
+    })),
+    studySessions: userSessions.map((s: typeof studySessionsTable.$inferSelect) => ({
+      id: s.id,
+      subjectId: s.subjectId,
+      title: s.title,
+      date: s.date,
+      startTime: s.startTime,
+      endTime: s.endTime,
+      status: s.status as StudySession["status"],
+      notes: s.notes ?? "",
+    })),
+  };
+}
+
+export function AppProvider({ children, userId }: { children: ReactNode; userId: number }) {
+  const [state, dispatch] = useReducer(reducer, EMPTY_STATE);
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch {
-      // ignore storage errors
-    }
-  }, [state]);
+    loadUserData(userId).then((data) => {
+      dispatch({ type: "LOAD_STATE", payload: data });
+      setLoaded(true);
+    });
+  }, [userId]);
+
+  if (!loaded) {
+    return <div className="min-h-screen bg-black flex items-center justify-center text-pink-400">Loading...</div>;
+  }
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }
